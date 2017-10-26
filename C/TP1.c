@@ -3,15 +3,13 @@
 #include<stdlib.h> //for exit(0);
 #include<sys/socket.h>
 #include<errno.h> //For errno - the error number
-#include<netdb.h> //hostent
+#include<netdb.h> 
 #include<arpa/inet.h>
 
 
 int main(int argc , char *argv[]) {
-    
     char str1[20];
-
-    printf("Host name : ");
+    printf("Nom du host : ");
     scanf("%s", str1);   
     struct hostent *hp = gethostbyname(str1);   
     if(hp == NULL) printf("\nFAIL\n");
