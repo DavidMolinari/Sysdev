@@ -6,21 +6,23 @@
 #include<netdb.h> //hostent
 #include<arpa/inet.h>
 
-struct in_addr{
-	unsigned long;
-}
-struct hostent{
-	char *h_name;
-	char **h_aliases;
-	int h_addrtype;
-	int h_length;
-	char **h_addr_list;
-}
-struct hostent* getHostByName(const char *name);
-char * inet_ntoa(struct in_addr in);
 
-void main(){
+int main(int argc , char *argv[]) {
+    
+    char str1[20];
+
+    printf("Host name : ");
+    scanf("%s", str1);   
+    struct hostent *hp = gethostbyname(str1);   
+    if(hp == NULL) printf("\nFAIL\n");
+    else{
+        printf("%s = ", hp->h_name);
+        int i = 0;
+        while(hp->h_addr_list[i] != NULL){
+            printf("%s \n", inet_ntoa(*(struct in_addr*)(hp->h_addr_list[i])));
+            i++;
+        }       
+    }
+    return 0;
 }
 
-
-//TODO
