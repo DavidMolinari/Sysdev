@@ -40,10 +40,12 @@ int main(int argc, char *argv[]){
         quitte le programme */
         int sock = socket(AF_INET, SOCK_STREAM, 0);
 
+        // if(sock == INVALID_SOCKET){
         if(sock == -1){
             perror("Socket()");
             exit(errno);
         } else {
+            // COMMENT ON FAIT ? //TODO
             sockLoc = sock;
             printf("Socket = %d\n", sock);
             printf("%d\n", sockLoc);
@@ -52,11 +54,23 @@ int main(int argc, char *argv[]){
         int errno;
         infosAddrLoc.sin_family=AF_INET;
 
-        infosAddrLoc.sin_port=htons(1234);
+        infosAddrLoc.sin_port=htonl(1234);
 
+        
+        // ….....
+        // ….....
+        // ….....
 
+        /* 4. Mise à jour des informations d'adressage locales */
+
+        /* 4.1. Mise à jour du domaine de la socket locale */
+        // ….....
+
+        /* 4.2. Mise à jour du numéro de port local après avoir fait la conversion en format réseau */
+        // ….....
 
         infosAddrLoc.sin_addr.s_addr = htonl(INADDR_ANY);  /* 4.3. Que fait-on ici  ? */  
+        /* …..... */
 
         /* 4.4. Mise à jour de tailleInfosAddrLoc */
          tailleInfosAddrLoc = sizeof(infosAddrLoc);
@@ -76,23 +90,44 @@ int main(int argc, char *argv[]){
          memcpy(&infosAddrServ.sin_addr, infosServ->h_addr, infosServ->h_length);   /*Mise à jour de l'adresse IP du serveur*/
   
          printf("Adresse du serveur: %s \n", inet_ntoa(infosAddrServ.sin_addr));
-
+  
          tailleInfosAddrServ = sizeof(infosAddrServ);   /* Mise à jour de tailleInfosAddrServ */
+  
         
-        /* 8. Connexion au serveur, si problème de connexion on quitte le programme */
-        if(connect(sock, (struct sockaddr *) &infosAddrServ, tailleInfosAddrServ) == -1){
-            printf("CONNECT RETURN -1\n");
-            printf("MESSAGE : %s\n",strerror(errno));
-        }else printf("TUTTI VA BENE CONNECT\n");
 
-        /* 9. Envoi d'un message au serveur */
-        if(send(sock,msgEnvoi ,sizeof(msgEnvoi), 0) == -1){
+         // MODE CLIENT
+
+        // if(connect(sock, (struct sockaddr *) &infosAddrServ, sizeof(infosAddrServ)) == -1){
+        //     printf("CONNECT RETURN -1\n");
+        //     printf("MESSAGE : %s\n",strerror(errno));
+        // }else printf("TUTTI VA BENE +\n");
+
+
+
+         // MODE SERVEUR
+        if(listen (sock, 50) == -1){
+            printf("Listen RETURN -1\n");
+            printf("MESSAGE : %s\n",strerror(errno));
+        }else printf("TUTTI VA BENE +\n");
+
+        if(accept(sock,(struct sockaddr *) &infosAddrLoc, &tailleInfosAddrLoc) == -1){
+            printf("accept RETURN -1\n");
+            printf("MESSAGE : %s\n",strerror(errno));
+        }else printf("TUTTI VA BENE +\n");
+
+
+        if(send(sock,&msgRecu,1000, 0) == -1){
             printf("send RETURN -1\n");
             printf("MESSAGE : %s\n",strerror(errno));
-        }else printf("TUTTI VA BENE SEND\n");
+        }else printf("TUTTI VA BENE +\n");
+
+        if(recv(sock,&msgRecu, 1000, 0) == -1){
+            printf("recv RETURN -1\n");
+            printf("MESSAGE : %s\n",strerror(errno));
+        }else printf("TUTTI VA BENE +\n");
+        // ….....
 
 
-
-        
+        /* 11. Fermeture de la socket */
         close(sockLoc) ;
 }
