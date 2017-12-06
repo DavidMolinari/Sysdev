@@ -94,19 +94,17 @@ int main(int argc, char *argv[]){
          tailleInfosAddrServ = sizeof(infosAddrServ);   /* Mise à jour de tailleInfosAddrServ */
         
         /* 8. Connexion au serveur, si problème de connexion on quitte le programme */
-        if(connect(sock, (struct sockaddr *) &infosAddrServ, tailleInfosAddrServ) == -1){
-            printf("CONNECT RETURN -1\n");
+
+        if(sendto(sock,msgEnvoi,sizeof(msgEnvoi), 0,&infosAddrServ,&tailleInfosAddrServ) == -1){
+            printf("SENDTO RETURN -1\n");
             printf("MESSAGE : %s\n",strerror(errno));
         }else printf("TUTTI VA BENE CONNECT\n");
 
-        /* 9. Envoi d'un message au serveur */
-        if(send(sock,msgEnvoi ,sizeof(msgEnvoi), 0) == -1){
-            printf("send RETURN -1\n");
+        if(recvfrom(sock,msgRecu, sizeof(msgRecu), 0,&infosAddrLoc,&tailleInfosAddrLoc) == -1){
+            printf("recv RETURN -1\n");
             printf("MESSAGE : %s\n",strerror(errno));
-        }else printf("TUTTI VA BENE SEND\n");
+        }else printf("%s\n",mot); // Flemme majuscule boucle for et toUpper à chaque char on a compriiiiiiiis
 
 
-
-        
         close(sockLoc) ;
 }
