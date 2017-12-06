@@ -103,7 +103,7 @@ int main(int argc, char *argv[]){
         if(recvfrom(sock,msgRecu, sizeof(msgRecu), 0,&infosAddrLoc,&tailleInfosAddrLoc) == -1){
             printf("recv RETURN -1\n");
             printf("MESSAGE : %s\n",strerror(errno));
-        }else printf("%s\n",mot); // Flemme majuscule boucle for et toUpper à chaque char on a compriiiiiiiis
+        }else printf("%s\n",msgRecu); // Flemme majuscule boucle for et toUpper à chaque char on a compriiiiiiiis
 
 
         close(sockLoc) ;
