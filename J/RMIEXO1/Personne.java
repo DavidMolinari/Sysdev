@@ -1,5 +1,6 @@
 import java.io.*;
-
+import java.rmi.*;
+import java.rmi.server.*;
 class Personne extends UnicastRemoteObject implements PersonneInterface{
     private String nom;
     private String prenom;
@@ -12,6 +13,7 @@ class Personne extends UnicastRemoteObject implements PersonneInterface{
     }
 
     public void vieillir() throws RemoteException{
+        
         age++;
     }
 

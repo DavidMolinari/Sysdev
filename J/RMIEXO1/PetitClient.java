@@ -10,9 +10,10 @@ public class PetitClient{
             }
             String nom_hote=args[0];
 
-            Personne p=new Personne ("Lucky", "Luke", 30);
-
+            PersonneInterface p=new Personne ("Lucky", "Luke", 30);
+            
             TraitementsInterface traitementsInterface =(TraitementsInterface)Naming.lookup("rmi://"+nom_hote+":1099/traitements"); 
+            
             traitementsInterface.vieillirPersonne(p);
 
             p.afficherAge();

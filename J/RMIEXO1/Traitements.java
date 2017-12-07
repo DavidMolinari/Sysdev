@@ -7,7 +7,12 @@ class Traitements extends UnicastRemoteObject implements TraitementsInterface{
         super(); // constructeur de la classe mère
     }
 
-    public void vieillirPersonne(Personne p) throws RemoteException {
+    // public void vieillirPersonne(Personne p) throws RemoteException {
+    //     p.vieillir();
+    // }
+
+    public void vieillirPersonne(PersonneInterface p) throws RemoteException {
         p.vieillir();
+        p.afficherAge();
     }
 }
