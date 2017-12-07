@@ -5,7 +5,8 @@ import java.util.*;
 
 public class ServeurTchat extends UnicastRemoteObject implements ServeurTchatInterface{
 
-    Vector clients=new Vector();
+    // Vector<ClientChat> clients=new Vector<ClientChat>();
+    Vector<ClientTchatInterface> clients = new Vector<ClientTchatInterface>();
 
     public ServeurTchat () throws RemoteException {
         super();
@@ -16,7 +17,6 @@ public class ServeurTchat extends UnicastRemoteObject implements ServeurTchatInt
         clients.add(client);
     }
     
-
      /* en-tête de la méthode desenregistrementClient(...) */
      public void desenregistrementClient(ClientTchatInterface client) throws RemoteException{
         for (int i=0; i<clients.size(); i++)
@@ -39,11 +39,11 @@ public class ServeurTchat extends UnicastRemoteObject implements ServeurTchatInt
 
     public static void main(String[] args) {
         try {
-
             java.rmi.registry.LocateRegistry.createRegistry(1099);
             String url="rmi://"+InetAddress.getLocalHost().getHostAddress()+"/tchat";
+            ServeurTchat srv = new ServeurTchat();
             /* On enregistre dans la rmiregistry un objet de la classe courante */ 
-            Naming.rebind(url, this);            
+            Naming.rebind(url, srv);            
         }
         catch (Exception e) {
             e.printStackTrace();
