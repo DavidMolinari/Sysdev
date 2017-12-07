@@ -50,7 +50,7 @@ b) Que doit-on modifier dans le code des classes et interfaces précédentes pou
 
 - Il faut modifier Personne et Créer son interface
 ```java
-  import java.io.*;
+import java.io.*;
 import java.rmi.*;
 import java.rmi.server.*;
 class Personne extends UnicastRemoteObject implements PersonneInterface{
@@ -72,6 +72,18 @@ class Personne extends UnicastRemoteObject implements PersonneInterface{
     public void afficherAge() throws RemoteException{
         System.out.println(prenom+" "+nom+" a "+age+ "ans");
     }
+}
+
+```
+
+PersonneInterface.java
+
+```java
+import java.rmi.*;
+
+interface PersonneInterface extends Remote{
+    public void vieillir() throws RemoteException;
+    public void afficherAge() throws RemoteException;
 }
 
 ```
