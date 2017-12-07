@@ -26,9 +26,9 @@ a) De quel côté (client ou serveur) doit-on placer ces différentes interfaces
 
 - Client : 
   - PetitClient.java
-  - TraitementsInterface.java
   - Personne.java
 - Serveur : 
+  - TraitementsInterface.java
   - Traitements.java
   - PetitServeur.java
 
