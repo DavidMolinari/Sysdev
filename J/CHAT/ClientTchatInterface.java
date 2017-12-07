@@ -1,5 +1,6 @@
 import java.rmi.*;
 
 interface ClientTchatInterface extends Remote{
-    /* A compléter */
+    public void recuperationNouveauMessage(String msg) throws RemoteException;
+
 }

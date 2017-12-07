@@ -9,9 +9,10 @@ public class ClientTchat extends UnicastRemoteObject implements ClientTchatInter
     }
 
     /* Méthode recuperationNouveauMessage(...)  qui affiche un message reçu depuis le serveur */
-    ….....
-    ….....
-    ….....
+    public void recuperationNouveauMessage(String msg){
+        System.out.println("Le message est : " + msg);
+        // LOL EZ
+    }
 
     public static void main(String args[]){
         try {
@@ -26,8 +27,9 @@ public class ClientTchat extends UnicastRemoteObject implements ClientTchatInter
             ServeurTchatInterface serveurTchatInterface = (ServeurTchatInterface)Naming.lookup("rmi://"+nom_hote+":1099/tchat"); 
           
             /* Création d'un objet de la classe courante et enregistrement de celui-ci auprès du serveur */  
-            ….....
-            ….....
+            ClientTchatInterface = new Client(); //  NO 
+
+            //TODO
 
             System.out.println ("Discussion (-1 pour la quitter) : ");
             while(true){
@@ -35,11 +37,11 @@ public class ClientTchat extends UnicastRemoteObject implements ClientTchatInter
                 String s=keyboard.nextLine();
                 if(s.equals("-1")){
                     /* Désenregistrement de l'objet courant auprès du serveur */
-                    ….....
+                    //TODO
                     System.exit(0);
                 }
                 /* Envoi d'un message au serveur */
-                ….....
+                //TODO
             }
         }
         catch (Exception e) {
