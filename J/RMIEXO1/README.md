@@ -25,6 +25,7 @@ Sry flemme
 a) De quel côté (client ou serveur) doit-on placer ces différentes interfaces et classes (une fois compilées). A quoi correspond chacune ? Que manque t-il et comment l'obtient-t-on ? Qu'est ce qui est affiché par le client ?
 
 - Client : 
+  - TraitementsInterface.java
   - PetitClient.java
   - Personne.java
 - Serveur : 
@@ -33,7 +34,13 @@ a) De quel côté (client ou serveur) doit-on placer ces différentes interfaces
   - PetitServeur.java
 
 Il manque : 
-```meh  MEH ```
+Dans traitement
+```java
+public void vieillirPersonne(Personne p) throws RemoteException {
+    p.vieillir();
+    p.afficherAge(); // CETTE LIGNE
+ }
+```
 
 
 Le client affiche : 
