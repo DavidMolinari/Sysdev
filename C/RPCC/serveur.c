@@ -17,22 +17,25 @@ struct operands{
 /* Fonction d'/de … */
 bool_t encoding_operands(XDR *x, struct operands *ops){
     if(ops != NULL){
-        xdr_int(x, ops->op1);
-        xdr_int(x, ops->op2);
-    } else return FALSE;
+        xdr_int(x, &(ops->op1));
+        xdr_int(x, &(ops->op2));
+    } else return -1;
 }
 
 /* Fonction appelable à distance qui calcule la somme de 2 entiers */
 int *add (struct operands *ops){
-    return (int)ops->op1 + (int)ops->op2;
+    int result = ops->op1 + ops->op2;
+    return &result;
 }
 
-main(int argc, char *argv[]){
+/*  */
+void main(int argc, char *argv[]){
 
    pmap_unset(ARITHM_PROG_NUM, ARITHM_VERS_NUM);
 
     /* Enregistrement de la fonction auprès du portmap */
-    ….....
+   // Pointeur de fonction juste avec le nom de fonction
+    int r = registerrpc(ARITHM_PROG_NUM, ARITHM_VERS_NUM, ADD_FCT_NUM, add, encoding_operands,xdr_int);
 
     if (r==-1){
         perror("Registering service\n");
