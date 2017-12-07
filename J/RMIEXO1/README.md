@@ -94,6 +94,11 @@ interface PersonneInterface extends Remote{
 PersonneInterface p=new Personne ("Lucky", "Luke", 30);
 ```
 
+- Dans Traitement & son interface ( flemme de tout recopier
+```java
+public void vieillirPersonne(PersonneInterface p) throws RemoteException {
+```
+
 
 Qu'est ce qui est maintenant affiché par le client ?
 
