@@ -4,6 +4,7 @@ import java.util.*;
 
 public class ClientTchat extends UnicastRemoteObject implements ClientTchatInterface  {
 
+
     public ClientTchat()throws RemoteException{
         super();
     }
@@ -44,7 +45,8 @@ public class ClientTchat extends UnicastRemoteObject implements ClientTchatInter
                 }
                 //TODO
                 // serveurTchatInterface.transfertMessage(s);
-                serveurTchatInterface.afficheMessage(s);
+                String msg = pseudo + " : " + s; 
+                serveurTchatInterface.afficheMessage(msg);
             }
         }
         catch (Exception e) {
