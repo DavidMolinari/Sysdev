@@ -98,5 +98,5 @@ PersonneInterface p=new Personne ("Lucky", "Luke", 30);
 Qu'est ce qui est maintenant affiché par le client ?
 
 ```bash
-Meh
+Luke Lucky a 30ans
 ```
