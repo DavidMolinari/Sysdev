@@ -32,7 +32,7 @@ a) De quel côté (client ou serveur) doit-on placer ces différentes interfaces
   - TraitementsInterface.java
   - Traitements.java
   - PetitServeur.java
-
+  - Personne.java
 Il manque : 
 Dans traitement
 ```java
@@ -41,8 +41,6 @@ public void vieillirPersonne(Personne p) throws RemoteException {
     p.afficherAge(); // CETTE LIGNE
  }
 ```
-
-
 Le client affiche : 
 
 ```bash
