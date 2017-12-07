@@ -48,7 +48,7 @@ Luke Lucky a 30ans
 ```
 b) Que doit-on modifier dans le code des classes et interfaces précédentes pour que le paramètre objet soit maintenant passé par adresse. Comment doit-on maintenant répartir les différentes classes et interfaces entre le client et le serveur. 
 
-- Il faut modifier Personne et Créer son interface
+ - Il faut modifier Personne et Créer son interface
 ```java
 import java.io.*;
 import java.rmi.*;
@@ -76,7 +76,7 @@ class Personne extends UnicastRemoteObject implements PersonneInterface{
 
 ```
 
-PersonneInterface.java
+ - PersonneInterface.java
 
 ```java
 import java.rmi.*;
@@ -86,6 +86,12 @@ interface PersonneInterface extends Remote{
     public void afficherAge() throws RemoteException;
 }
 
+```
+
+ - Dans le client lui passer un objet de Type : PersonneInterface
+
+```java
+PersonneInterface p=new Personne ("Lucky", "Luke", 30);
 ```
 
 
