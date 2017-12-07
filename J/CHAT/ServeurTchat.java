@@ -39,6 +39,11 @@ public class ServeurTchat extends UnicastRemoteObject implements ServeurTchatInt
 
     public void afficheMessage(String msg) throws RemoteException{
         System.out.println(msg);
+        for (int i=0; i<clients.size(); i++){
+                ClientTchatInterface client= (ClientTchatInterface)(clients.get(i));
+                client.recuperationNouveauMessage(msg);
+            }
+
     }
 
 

@@ -11,7 +11,7 @@ public class ClientTchat extends UnicastRemoteObject implements ClientTchatInter
 
     /* Méthode recuperationNouveauMessage(...)  qui affiche un message reçu depuis le serveur */
     public void recuperationNouveauMessage(String msg){
-        System.out.println("Le message est : " + msg);
+        System.out.println(msg);
         // LOL EZ
     }
 
