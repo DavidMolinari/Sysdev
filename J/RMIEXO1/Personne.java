@@ -1,6 +1,6 @@
 import java.io.*;
 
-class Personne implements Serializable{
+class Personne extends UnicastRemoteObject implements PersonneInterface{
     private String nom;
     private String prenom;
     private int age;
