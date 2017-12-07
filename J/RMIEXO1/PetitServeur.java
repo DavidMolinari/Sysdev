@@ -13,6 +13,9 @@ public class PetitServeur {
             Traitements traitements= new Traitements();
             String url="rmi://"+InetAddress.getLocalHost().getHostAddress()+"/traitements";
 
+
+            
+
             Naming.rebind(url, traitements);
         }
         catch (Exception e) {
