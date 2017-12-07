@@ -24,11 +24,13 @@ public class ClientTchat extends UnicastRemoteObject implements ClientTchatInter
             String nom_hote=args[0];
             String pseudo=args[1];
 
+            ServeurTchat srvChat = new ServeurTchat();
             ServeurTchatInterface serveurTchatInterface = (ServeurTchatInterface)Naming.lookup("rmi://"+nom_hote+":1099/tchat"); 
 
             /* Création d'un objet de la classe courante et enregistrement de celui-ci auprès du serveur */  
             ClientTchatInterface client = new ClientTchat(); //  NO 
             serveurTchatInterface.enregistrementClient(client);
+            System.out.println(serveurTchatInterface.nbClientsEnCours());
             //TODO
 
             System.out.println ("Discussion (-1 pour la quitter) : ");
@@ -37,12 +39,12 @@ public class ClientTchat extends UnicastRemoteObject implements ClientTchatInter
                 String s=keyboard.nextLine();
                 if(s.equals("-1")){
                     /* Désenregistrement de l'objet courant auprès du serveur */
-                    //TODO
+                    serveurTchatInterface.desenregistrementClient(client);
                     System.exit(0);
                 }
-
-                /* Envoi d'un message au serveur */
                 //TODO
+                // serveurTchatInterface.transfertMessage(s);
+                serveurTchatInterface.afficheMessage(s);
             }
         }
         catch (Exception e) {

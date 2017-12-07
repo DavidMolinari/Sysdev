@@ -6,5 +6,6 @@ interface ServeurTchatInterface extends Remote{
     public void desenregistrementClient(ClientTchatInterface client) throws RemoteException;
     public int nbClientsEnCours() throws RemoteException;
     public void transfertMessage(String msg) throws RemoteException;
+    public void afficheMessage(String msg) throws RemoteException;
 
 }

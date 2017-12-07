@@ -37,13 +37,19 @@ public class ServeurTchat extends UnicastRemoteObject implements ServeurTchatInt
         }
     }
 
+    public void afficheMessage(String msg) throws RemoteException{
+        System.out.println(msg);
+    }
+
+
+
     public static void main(String[] args) {
         try {
             java.rmi.registry.LocateRegistry.createRegistry(1099);
             String url="rmi://"+InetAddress.getLocalHost().getHostAddress()+"/tchat";
             ServeurTchat srv = new ServeurTchat();
             /* On enregistre dans la rmiregistry un objet de la classe courante */ 
-            Naming.rebind(url, srv);            
+            Naming.rebind(url, srv);
         }
         catch (Exception e) {
             e.printStackTrace();
