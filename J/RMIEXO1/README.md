@@ -48,8 +48,32 @@ Luke Lucky a 30ans
 ```
 b) Que doit-on modifier dans le code des classes et interfaces précédentes pour que le paramètre objet soit maintenant passé par adresse. Comment doit-on maintenant répartir les différentes classes et interfaces entre le client et le serveur. 
 
+- Il faut modifier Personne et Créer son interface
 ```java
-  System.out.println("Meh");
+  import java.io.*;
+import java.rmi.*;
+import java.rmi.server.*;
+class Personne extends UnicastRemoteObject implements PersonneInterface{
+    private String nom;
+    private String prenom;
+    private int age;
+    
+    public Personne(String nom, String prenom, int age) throws RemoteException{
+        this.nom=nom;
+        this.prenom=prenom;
+        this.age=age;
+    }
+
+    public void vieillir() throws RemoteException{
+        
+        age++;
+    }
+
+    public void afficherAge() throws RemoteException{
+        System.out.println(prenom+" "+nom+" a "+age+ "ans");
+    }
+}
+
 ```
 
 
