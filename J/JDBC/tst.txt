@@ -1,0 +1,8 @@
+nom  	prénom  	 age  	compte
+raimon dylan 145 0.0
+antonio dylan 20 20345.0
+simon jean 20 456.0
+Somme des comptes: 20801.0 Nombre de comptes valides: 2
+nombre de colonnes dans le résultat : 4
+id nom sexe statut 
+1 raimon homme DIEU 2 antonio null Princesse 

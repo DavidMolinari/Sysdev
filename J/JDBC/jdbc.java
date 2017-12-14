@@ -158,15 +158,17 @@ public class jdbc{
                         con.rollback();
                   else{
                         /* 5.4. Ecrire, exécuter et valider les deux requêtes de mise à jour */
-                        requete = "UPDATE compte SET compte = ? WHERE nom = ?";
-                        pstmt = con.prepareStatement(requete);
-                        pstmt.setFloat(1, compteTiti);
-                        pstmt.setString(2, "toto");
-                        int nbRow = pstmt.executeUpdate();
-                        pstmt.setFloat(1, compteToto);
-                        pstmt.setString(2, "titi");
-                        int nbRow2 = pstmt.executeUpdate();
-                        if(nbRow>1 || nbRow2>1)
+                        requete = "UPDATE client SET compte = ? WHERE nom = ?";
+                       // pstmt = con.prepareStatement(requete);
+			PreparedStatement pre =null;
+		        pre = con.prepareStatement(requete);
+                        pre.setFloat(1, compteToto);
+                        pre.setString(2, "toto");
+                       // int nbRow = pre.executeUpdate();
+                       // pre.setFloat(1, compteToto);
+                       // pre.setString(2, "titi");
+			int nbRow2 = pre.executeUpdate();
+                        if(nbRow2>1)
                               con.rollback();
                         else
                               con.commit();
