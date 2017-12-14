@@ -19,7 +19,7 @@ public class jdbc{
             /* Exemple avec Microsoft Access en local */
             // String path="C:/MaBase.mdb";
             // Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-            DBurl="jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ="+path;
+           // DBurl="jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ="+path;
 
              // Connexion avec un login et un password factices
             String user = "cnamuser";
@@ -42,6 +42,9 @@ public class jdbc{
             float compteToto=-1.0f; // pour la valeur du compte de toto (questions 5 et 6)
             float compteTiti=-1.0f; // pour la valeur du compte de titi (questions 5 et 6)
             PreparedStatement pstmt=null; // pour exécution requête SQL paramétrée (question 6)
+            PreparedStatement pstmt2=null; // pour exécution requête SQL paramétrée (question 6)
+            PreparedStatement pstmt3=null; // pour exécution requête SQL paramétrée (question 6)
+            PreparedStatement pstmt4=null; // pour exécution requête SQL paramétrée (question 6)
 
             int nbMaj=-1; // pour le nombre de mises à jour des deux requêtes SQL de type UPDATE de la question 7
 
@@ -76,11 +79,11 @@ public class jdbc{
             /* 2.3. Parcours de chaque ligne en mettant à jour les deux variables précédentes */
             while (rset.next()){
                   float valCompte = rset.getFloat("compte");
-                  if (rset.wasNull())
-                        nbComptesNotNull++;
-                  else
+                  if (!rset.wasNull()){
+      nbComptesNotNull++;
                         sommeComptes+= valCompte;
             }
+     }
 
             /* 2.4. Affichage du résultat */
             System.out.println("Somme des comptes: "+sommeComptes+" Nombre de comptes valides: "+nbComptesNotNull);
@@ -97,7 +100,7 @@ public class jdbc{
             System.out.println("nombre de colonnes dans le résultat : "+nbColonnes);
 
             /* 3.3. Afficher le nom des colonnes sur une ligne */ 
-            for (int i=0;i<nbColonnes;i++) {
+            for (int i=1;i<nbColonnes+1;i++) {
                   ligneAffichage+=rsmd.getColumnName(i)+" ";
             }
             System.out.println(ligneAffichage);
@@ -105,18 +108,19 @@ public class jdbc{
             /* 3.4. Parcours et affichage de chaque ligne */
             ligneAffichage="";
             while (rset.next()){
-                  for (int i=0;i<nbColonnes;i++) {
+                  for (int i=1;i<nbColonnes+1;i++) {
                         ligneAffichage+=rset.getString(rsmd.getColumnName(i))+" ";
                   }
-                  System.out.println(ligneAffichage);
-            }
+      }    
+      System.out.println(ligneAffichage);
+            
 
             /* 4. Question 4. */
 
             con.setAutoCommit(false);
 
            /* 4.1 Requête de mise à jour */
-            requete= "update personnes set age=age+1 where age >100";
+            requete= "update client set age=age+1 where age >100";
 
             /* 4.2. Exécution de la requête et annulation de celle-ci si le nombre de personnes concernés par la mise à jour est    
             supérieur à 1*/
@@ -133,39 +137,47 @@ public class jdbc{
             UPDATE :    
             verrouillage "Row Share Table Locks (RS)" sur une une BD Oracle */
 
-            requete="select compte from personnes where nom = ?";
-            pstmt = con.prepareStatement(requete);
-            pstmt.setString(1, "toto");
-            rset = stmt.executeQuery(requete);
-            pstmt.setString(1, "titi");
-            rset2 = stmt.executeQuery(requete);
-            
+            requete="select compte from client where nom = ?";
 
+            pstmt = con.prepareStatement(requete);
+            pstmt2 = con.prepareStatement(requete);
+          
+     // rset.close();
+
+            pstmt.setString(1, "antonio");
+      if(pstmt.execute() != false)
+       rset = pstmt.executeQuery();
+    
+           pstmt2.setString(1, "simon");
+           if(pstmt2.execute() != false) 
+          rset2 =pstmt2.executeQuery();
             /* 5.2. Si les personnes "toto" ou "titi" n'existent pas, on annule la transaction  */
-            if(!rset.next()|| !rset2.next()){
-                  con.rollback();
-            }else {
                   /* 5.3. Récupération des comptes ; si l'un d'eux n'est pas renseigné (null), on annule la transaction  */
-                  compteToto = rset.getFloat("compte");
+            if(rset.next() && rset.next())   {
+              compteToto = rset.getFloat("compte");
                   compteTiti = rset2.getFloat("compte");
+            }   
+            else con.rollback();
+       
                   if(rset.wasNull() || rset2.wasNull())
                         con.rollback();
                   else{
                         /* 5.4. Ecrire, exécuter et valider les deux requêtes de mise à jour */
-                        requete = "UPDATE compte SET compte = ? WHERE nom = ?";
-                        pstmt = con.prepareStatement(requete);
-                        pstmt.setFloat(1, compteTiti);
-                        pstmt.setString(2, "toto");
-                        int nbRow = stmt.executeUpdate(requete);
-                        pstmt.setFloat(1, compteToto);
-                        pstmt.setString(2, "titi");
-                        int nbRow2 = stmt.executeUpdate(requete);
-                        if(nbRow>1 || nbRow2>1)
+                        requete = "UPDATE client SET compte = ? WHERE nom = ?";
+                        pstmt3 = con.prepareStatement(requete);
+                        pstmt3.setFloat(1, compteToto);
+                        pstmt3.setString(2, "toto");
+                        int nbRow = pstmt3.executeUpdate();
+                        pstmt4 = con.prepareStatement(requete);
+                        pstmt4.setFloat(1, compteToto);
+                        pstmt4.setString(2, "titi");
+                        int nbRow2 = pstmt4.executeUpdate();
+                        if(nbRow2>1 || nbRow>1)
                               con.rollback();
                         else
                               con.commit();
                   }
-            }
+            
 
         } 
         catch (Exception e) {
@@ -173,4 +185,3 @@ public class jdbc{
         }
     }
 }
-
