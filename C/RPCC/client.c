@@ -1,6 +1,7 @@
 #include <rpc/rpc.h>
 #include <stdio.h>
-#include <stdlib>
+#include <stdlib.h>
+#include <sys/socket.h>
 #include <string.h>
 #include <strings.h>
 
@@ -16,13 +17,18 @@ struct operands{
 
 /* Fonction d'/de… */
 bool_t encoding_operands(XDR *x, struct operands *ops){
-    /* Même chose que pour serveur.c */ 
-    ….....
+    /* Même chose que pour serveur.c */     
+    if(ops != NULL){
+        xdr_int(x, &(ops->op1));
+        xdr_int(x, &(ops->op2));
+    } else return -1;
 }
 
 /* Fonction principale. argv[1] : hôte distant. argv[2] : première opérande. argv[3] : deuxième opérande. */
 
 main(int argc, char *argv[]){
+
+
 
     if (argc<4){
         fprintf(stderr, "missing parameters\n")
@@ -31,19 +37,31 @@ main(int argc, char *argv[]){
 
     char *host=argv[1];
 
-    struct operands ops;
     /* Récupération des deux entiers */
-    ….....
-    ….....
+
+
+    ops->op1 = argv[3];
+    ops->op2 = argv[4];
 
    /* Entier qui contiendra leur somme*/
     int result;
 
     /* Appel de la fonction distante */
-    ….....
 
-    if (r!=0){
-        clnt_perrno(r);
+    int sockLoc = socket(AF_INET, SOCK_STREAM, 0);
+    CLIENT *clnt;
+    clnt = CLIENT *clnttcp_create(host,ARITHM_PROG_NUM,ARITHM_VERS_NUM,sockLoc,500,500);
+
+
+
+    struct operands ops;
+    
+
+
+    int r = clnt_call(clnt,ARITHM_PROG_NUM,encoding_operands, argv, result, char *out, 500);
+
+    if (r==-1){
+        perror("Registering service\n");
         exit(1);
     }
 

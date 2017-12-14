@@ -1,9 +1,9 @@
 #include <rpc/rpc.h>
 #include <stdio.h>
-#include <stdlib>
+#include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-
+#include <rpc/pmap_clnt.h>
 #define ARITHM_PROG_NUM ((u_long)0x33333333)
 #define ARITHM_VERS_NUM ((u_long)1)
 #define ADD_FCT_NUM ((u_long)1)
@@ -22,9 +22,10 @@ bool_t encoding_operands(XDR *x, struct operands *ops){
     } else return -1;
 }
 
+int result;
 /* Fonction appelable à distance qui calcule la somme de 2 entiers */
 int *add (struct operands *ops){
-    int result = ops->op1 + ops->op2;
+    result = ops->op1 + ops->op2;
     return &result;
 }
 
