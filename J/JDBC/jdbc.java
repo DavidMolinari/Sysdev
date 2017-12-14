@@ -9,7 +9,7 @@ public class jdbc{
 
              // Exemple avec SGBD MySql local 
             Class.forName("com.mysql.jdbc.Driver");
-            DBurl="jdbc:mysql://http://10.21.99.68:3306";
+            DBurl="jdbc:mysql://10.21.99.68:3306/CNAM";
 
 
 
