@@ -1,12 +1,7 @@
 
-# Utilisation de SocketClient et SocketServer
+# Différents TP en langage C :
 
-### Compilation du client
-```sh
-gcc SocketClient.c -o client
-```
-
-### Execution du client
-```sh
-./client PortClient HostName PortServer MessageAEnvoyer TailleMessage
-```
+  - [Fork](.https://github.com/DavidMolinari/Sysdev/tree/master/C/Fork)
+  - [RPC](.https://github.com/DavidMolinari/Sysdev/tree/master/C/RPCC)
+  - [Sockets](.https://github.com/DavidMolinari/Sysdev/tree/master/C/Socket)
+  
