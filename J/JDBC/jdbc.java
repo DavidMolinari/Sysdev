@@ -10,7 +10,6 @@ public class jdbc{
              // Exemple avec SGBD MySql local 
             Class.forName("com.mysql.jdbc.Driver");
             DBurl="jdbc:mysql://localhost:3306/CNAM";
-            
 
             /* Exemple avec SGBD PostgreSQL local
             Class.forName("org.postgresql.Driver");
