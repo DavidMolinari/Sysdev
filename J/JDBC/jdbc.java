@@ -106,14 +106,14 @@ public class jdbc{
             System.out.println(ligneAffichage);
 
             /* 3.4. Parcours et affichage de chaque ligne */
-            ligneAffichage="";
             while (rset.next()){
-                  for (int i=1;i<nbColonnes+1;i++) {
+            ligneAffichage="";
+	      	    for (int i=1;i<nbColonnes+1;i++) {
                         ligneAffichage+=rset.getString(rsmd.getColumnName(i))+" ";
                   }
-      }    
+       
       System.out.println(ligneAffichage);
-            
+	    }      
 
             /* 4. Question 4. */
 
@@ -153,11 +153,12 @@ public class jdbc{
           rset2 =pstmt2.executeQuery();
             /* 5.2. Si les personnes "toto" ou "titi" n'existent pas, on annule la transaction  */
                   /* 5.3. Récupération des comptes ; si l'un d'eux n'est pas renseigné (null), on annule la transaction  */
-            if(rset.next() && rset.next())   {
+            rset.next();
+	 rset2.next();   
               compteToto = rset.getFloat("compte");
                   compteTiti = rset2.getFloat("compte");
-            }   
-            else con.rollback();
+              
+            
        
                   if(rset.wasNull() || rset2.wasNull())
                         con.rollback();
@@ -166,11 +167,11 @@ public class jdbc{
                         requete = "UPDATE client SET compte = ? WHERE nom = ?";
                         pstmt3 = con.prepareStatement(requete);
                         pstmt3.setFloat(1, compteToto);
-                        pstmt3.setString(2, "toto");
+                        pstmt3.setString(2, "simon");
                         int nbRow = pstmt3.executeUpdate();
                         pstmt4 = con.prepareStatement(requete);
-                        pstmt4.setFloat(1, compteToto);
-                        pstmt4.setString(2, "titi");
+                        pstmt4.setFloat(1, compteTiti);
+                        pstmt4.setString(2, "antonio");
                         int nbRow2 = pstmt4.executeUpdate();
                         if(nbRow2>1 || nbRow>1)
                               con.rollback();
